@@ -1,0 +1,8 @@
+services:
+  web:
+    image: pokemon-frontend:latest
+    ports:
+      - "3002:80"
+    # if you prefer to see live changes without rebuilding, you can mount your build:
+    # volumes:
+    #   - ./build:/usr/share/nginx/html:ro
