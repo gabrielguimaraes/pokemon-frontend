@@ -1,5 +1,5 @@
 services:
-  web:
+  main_app_web:
     build:
       context: ..
       dockerfile: .tr-codegen/Dockerfile
