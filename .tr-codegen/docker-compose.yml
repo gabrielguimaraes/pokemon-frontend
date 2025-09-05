@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   main_app_web:
     build:
@@ -6,6 +8,31 @@ services:
     image: pokemon-frontend:latest
     ports:
       - "3002:80"
-    # if you prefer to see live changes without rebuilding, you can mount your build:
-    # volumes:
-    #   - ./build:/usr/share/nginx/html:ro
+    networks:
+      - pokemon-network
+    depends_on:
+      - main_app_pokemon-backend
+
+  main_app_pokemon-backend:
+    build:
+      context: ../../pokemon-backend
+      dockerfile: .tr-codegen/Dockerfile
+    container_name: main_app_pokemon
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+    restart: unless-stopped
+    networks:
+      - pokemon-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  pokemon-network:
+    driver: bridge
