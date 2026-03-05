@@ -127,8 +127,11 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <h1>Pokemon Explorer</h1>
+        <h1>Pokemon Explorer v2</h1>
         <p>Discover and filter your favorite Pokemon!</p>
+        <div className="header-actions">
+          <button className="jira-link-button">Link Jira Issue</button>
+        </div>
       </header>
 
       <main className="main-content">
