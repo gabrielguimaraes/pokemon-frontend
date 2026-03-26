@@ -13,7 +13,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "docker:build": "docker build -t pokemon-frontend .",
-    "docker:run": "docker run -p 3002:80 pokemon-frontend"
+    "docker:run": "docker run -p 3002:80 pokemon-frontend",
+    "deploy": "bash deploy.sh",
+    "deploy:skip-build": "bash deploy.sh --skip-build"
   },
   "eslintConfig": {
     "extends": [
