@@ -15,7 +15,7 @@ const FilterBar = ({ filters, types, onFilterChange, onClearFilters }) => {
     <div className="filter-bar">
       <div className="filter-section">
         <label htmlFor="name-filter" className="filter-label">
-          Search by Name:
+          Search by Pokemon Name:
         </label>
         <input
           id="name-filter"
