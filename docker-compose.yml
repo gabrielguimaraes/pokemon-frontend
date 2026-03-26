@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  main_app_web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - REACT_APP_API_URL=${REACT_APP_API_URL:-http://localhost:3001}
+    image: pokemon-frontend:latest
+    container_name: main_app_web
+    ports:
+      - "3002:80"
+    restart: unless-stopped
+    networks:
+      - pokemon-network
+    depends_on:
+      - main_app_pokemon-backend
+
+  main_app_pokemon-backend:
+    build:
+      context: ../pokemon-backend
+      dockerfile: Dockerfile
+    container_name: main_app_pokemon
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+    restart: unless-stopped
+    networks:
+      - pokemon-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  pokemon-network:
+    driver: bridge
