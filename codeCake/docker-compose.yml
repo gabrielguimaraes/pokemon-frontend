@@ -1,0 +1,15 @@
+services:
+  main_app:
+    image: node:18-alpine
+    working_dir: /app
+    volumes:
+      - ../:/app
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: "3000"
+      HOST: "0.0.0.0"
+      REACT_APP_API_URL: "http://localhost:3001"
+      CI: "true"
+      WDS_SOCKET_PORT: "0"
+    command: sh -c "npm install --legacy-peer-deps && npm start"
